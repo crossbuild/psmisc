@@ -65,9 +65,3 @@ do
   $AUTOCONF -Wall
   cd -
 done
-
-./configure "$@"
-
-echo
-echo "Now type 'make' to compile $PROJECT."
-
