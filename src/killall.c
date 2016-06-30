@@ -364,12 +364,14 @@ load_proc_cmdline(const pid_t pid, const char *comm, char **command, int *got_lo
 	p = p ? p+1 : command_buf;
 	if (strncmp(p, comm, COMM_LEN-1) == 0) {
 	    okay = 1;
-	    *command = p;
+	    if (!(*command = strdup(p)))
+		exit(1);
 	    break;
 	}
     }
     (void) fclose(file);
-    
+    free(command_buf);
+
     if (exact && !okay)
     {
 	if (verbose)
